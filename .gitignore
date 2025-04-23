@@ -1,0 +1,15 @@
+# Node/Vite (frontend)
+ShopFrontend/HardwareShopFrontend/node_modules/
+ShopFrontend/HardwareShopFrontend/dist/
+ShopFrontend/HardwareShopFrontend/.env
+
+# .NET (backend)
+ShopManagement/bin/
+ShopManagement/obj/
+ShopManagement/*.user
+ShopManagement/*.vs
+
+# General
+.DS_Store
+.env
+*.log
