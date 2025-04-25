@@ -27,7 +27,7 @@ const quantity = ref(1)
 
 async function recordSale() {
   try {
-    await axios.post('http://localhost:5000/api/sales', {
+    await axios.post('https://shop-backend-sfmi.onrender.com/api/sales', {
       Product_Id: productId.value,
       Quantity: quantity.value,
     })

@@ -27,7 +27,7 @@ const { products } = defineProps(['products'])
 const emit = defineEmits(['refresh', 'edit'])
 
 async function deleteProduct(id) {
-  await axios.delete(`http://localhost:5000/api/products/${id}`)
+  await axios.delete(`https://shop-backend-sfmi.onrender.com/api/products/${id}`)
   emit('refresh')
 }
 

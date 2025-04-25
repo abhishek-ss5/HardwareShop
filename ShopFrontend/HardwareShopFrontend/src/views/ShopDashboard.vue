@@ -59,12 +59,12 @@ const sales = ref([])
 const editableProduct = ref(null)
 
 async function loadProducts() {
-  const res = await axios.get('http://localhost:5000/api/products')
+  const res = await axios.get('https://shop-backend-sfmi.onrender.com/api/products')
   products.value = res.data
 }
 
 async function loadSales() {
-  const res = await axios.get('http://localhost:5000/api/sales')
+  const res = await axios.get('https://shop-backend-sfmi.onrender.com/api/sales')
   sales.value = res.data
 }
 

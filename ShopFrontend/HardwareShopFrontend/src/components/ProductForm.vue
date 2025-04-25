@@ -54,12 +54,12 @@ watch(
 
 async function handleSubmit() {
   if (isEditing.value) {
-    await axios.put(`http://localhost:5000/api/products/${productId.value}`, {
+    await axios.put(`https://shop-backend-sfmi.onrender.com/api/products/${productId.value}`, {
       Product_Name: name.value,
       Product_Quantity: quantity.value,
     })
   } else {
-    await axios.post('http://localhost:5000/api/products', {
+    await axios.post('https://shop-backend-sfmi.onrender.com/api/products', {
       Product_Name: name.value,
       Product_Quantity: quantity.value,
     })
