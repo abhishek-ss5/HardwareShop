@@ -18,9 +18,12 @@
 <script setup>
 import { ref } from 'vue'
 import axios from 'axios'
+import { useToast } from 'vue-toastification'
 
 const { products } = defineProps(['products'])
 const emit = defineEmits(['refresh'])
+
+const toast = useToast()
 
 const productId = ref('')
 const quantity = ref(1)
@@ -34,8 +37,11 @@ async function recordSale() {
     productId.value = ''
     quantity.value = 1
     emit('refresh')
+
+    toast.success("Sale recorded successfully")
   } catch (err) {
-    alert(err.response?.data?.message || 'Sale failed')
+    toast.error("Sale Failed !!")
+    // alert(err.response?.data?.message || 'Sale failed')
   }
 }
 </script>

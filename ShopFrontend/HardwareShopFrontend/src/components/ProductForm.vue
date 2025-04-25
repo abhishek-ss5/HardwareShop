@@ -31,6 +31,7 @@
 <script setup>
 import { ref, watch } from 'vue'
 import axios from 'axios'
+import { useToast } from 'vue-toastification' // Import toast
 
 const props = defineProps(['selectedProduct'])
 const emit = defineEmits(['refresh', 'update:selectedProduct'])
@@ -39,6 +40,8 @@ const name = ref('')
 const quantity = ref(0)
 const productId = ref(null)
 const isEditing = ref(false)
+
+const toast = useToast() // Set up toast instance
 
 watch(
   () => props.selectedProduct,
@@ -53,20 +56,29 @@ watch(
 )
 
 async function handleSubmit() {
-  if (isEditing.value) {
-    await axios.put(`https://shop-backend-sfmi.onrender.com/api/products/${productId.value}`, {
-      Product_Name: name.value,
-      Product_Quantity: quantity.value,
-    })
-  } else {
-    await axios.post('https://shop-backend-sfmi.onrender.com/api/products', {
-      Product_Name: name.value,
-      Product_Quantity: quantity.value,
-    })
-  }
+  try {
+    if (isEditing.value) {
+      await axios.put(`https://shop-backend-sfmi.onrender.com/api/products/${productId.value}`, {
+        Product_Name: name.value,
+        Product_Quantity: quantity.value,
+      })
 
-  resetForm()
-  emit('refresh')
+      toast.success('Product updated successfully!') // Success message for update
+    } else {
+      await axios.post('https://shop-backend-sfmi.onrender.com/api/products', {
+        Product_Name: name.value,
+        Product_Quantity: quantity.value,
+      })
+
+      toast.success('Product added successfully!') // Success message for add
+    }
+
+    resetForm()
+    emit('refresh')
+    
+  } catch (error) {
+    toast.error('Something went wrong. Please try again.', error) // Error message
+  }
 }
 
 function cancelEdit() {

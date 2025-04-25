@@ -3,9 +3,7 @@
     <h3>Product List</h3>
     <ul>
       <li v-for="p in products" :key="p.product_Id" class="product-item">
-        <span class="product-info">
-          {{ p.product_Name }} - ({{ p.product_Quantity }})
-        </span>
+        <span class="product-info"> {{ p.product_Name }} - ({{ p.product_Quantity }}) </span>
         <div class="button-group">
           <button @click="deleteProduct(p.product_Id)" class="btn delete">Delete</button>
           <button @click="startEdit(p)" class="btn edit">Edit</button>
@@ -22,13 +20,21 @@
 
 <script setup>
 import axios from 'axios'
+import { useToast } from 'vue-toastification' // Import toast
 
 const { products } = defineProps(['products'])
 const emit = defineEmits(['refresh', 'edit'])
 
+const toast = useToast()
+
 async function deleteProduct(id) {
-  await axios.delete(`https://shop-backend-sfmi.onrender.com/api/products/${id}`)
-  emit('refresh')
+  try {
+    await axios.delete(`https://shop-backend-sfmi.onrender.com/api/products/${id}`)
+    emit('refresh')
+    toast.success('Product Deleted')
+  } catch {
+    toast.error('Some Error in Deletion !!')
+  }
 }
 
 function startEdit(product) {
